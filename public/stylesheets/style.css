@@ -1,0 +1,116 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+
+#map {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.options-container {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  z-index: 400;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 15px;
+  transition: all .25s ease-in-out;
+}
+
+.options-details-container,
+.options-btn-container  {
+  border-radius: 16px 0 0 16px;
+  background-color: #fff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
+
+.options-btn-container div {
+  padding: 20px;
+  cursor: pointer;
+  transition: all .25s ease-in-out;
+}
+
+.options-btn-container img {
+  filter: invert(36%) sepia(7%) saturate(7314%) hue-rotate(306deg) brightness(77%) contrast(77%);
+}
+
+.options-btn-container div:focus,
+.options-btn-container div:hover {
+  background-color: #efefef;
+}
+
+.options-details-container-body {
+  height: 60vh;
+  overflow-y: scroll;
+}
+
+.options-details-container-body div {
+  padding: 20px 25px;
+  min-width: 180px;
+  cursor: pointer;
+  transition: all .25s ease-in-out;
+  margin: 10px;
+  border-radius: 16px;
+  background: #994351;
+  color: #fff;
+  font-weight: 600;
+}
+
+.options-details-container-body div:focus,
+.options-details-container-body div:hover {
+  background-color: #782e3a;
+}
+
+.options-details-container-head {
+  padding: 30px 20px;
+  border-bottom: 1px solid #efefef;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #efefef;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #994351;
+  border-radius: 16px;
+  border: 1px solid #994351;
+}
+
+.options-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.no-margins {
+  margin: 0;
+}
+
+.leaflet-control-zoom {
+  border: unset!important;
+  border-radius: 16px!important;
+  overflow: hidden!important;
+}
+
+.leaflet-control-zoom a {
+  padding: 5px;
+  border-color: #efefef;
+}

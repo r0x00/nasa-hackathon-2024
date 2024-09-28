@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="html">
+    <head>
+        <title>Map</title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+        <link rel="stylesheet" href="leaflet/dist/leaflet.css"/>
+        <script src="leaflet/dist/leaflet.js"></script>
+        <script src="javascripts/map.js"></script>
+    </head>
+
+    <body>
+        <div id="map"></div>
+
+        <div class="options-container">
+            <div class="options-btn-container">
+                <div onclick="changeOption('layers')">
+                    <img src="images/layers.svg" alt="layers">
+                </div>
+
+                <div  onclick="changeOption('maps')">
+                    <img src="images/maps.svg" alt="maps">
+                </div>
+            </div>
+
+            <div class="options-details-container" style="display: none;">
+                <div class="options-details-container-head" >
+                    <p class="options-title no-margins"></p>
+                </div>
+                
+
+                <div class="options-details-container-body"></div>
+
+            </div>
+        </div>
+    </body>
+</html>
