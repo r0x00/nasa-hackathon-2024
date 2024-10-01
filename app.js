@@ -4,7 +4,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const app = express();
-// const L = require('leaflet')
+
+require('dotenv').config();
+app.set('TOMTOM_KEY', process.env.TOMTOM_KEY);
 
 app.use(express.static(__dirname + '/views'));
 app.use(express.static('node_modules'));
@@ -18,6 +20,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const routesView = require('./routes/routes-view');
 app.use('/', routesView);
+
+const routesRestful = require('./routes/routes-restful');
+app.use('/api', routesRestful);
+
 
 
 // catch 404 and forward to error handler
@@ -35,11 +41,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-// var map = L.map('map', {
-//   center: [51.505, -0.09],
-//   zoom: 13
-// });
 
 
 // console.log(map)
