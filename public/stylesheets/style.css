@@ -95,6 +95,11 @@ a {
   border: 1px solid #994351;
 }
 
+.dark-mode ::-webkit-scrollbar-track {
+  background: #2f2f2f;
+}
+
+
 .options-title {
   font-size: 16px;
   font-weight: 600;
@@ -113,4 +118,63 @@ a {
 .leaflet-control-zoom a {
   padding: 5px;
   border-color: #efefef;
+}
+
+.options-details-container-body .inactive {
+  background: #b7747f!important;
+}
+
+.dark-mode .options-details-container-body .inactive {
+  background: #492329 !important;
+}
+
+.dark-mode .options-details-container,
+.dark-mode .options-btn-container {
+  background-color: #101010; 
+  color: #fff;
+
+  border-top: 1px solid;
+  border-left: 1px solid;
+  border-bottom: 1px solid;
+  border-color: #2f2f2f;
+}
+
+.dark-mode .options-details-container .options-details-container-head {
+  border-color: #2f2f2f;
+}
+
+.dark-mode .options-btn-container div:focus, 
+.dark-mode .options-btn-container div:hover {
+  background-color: #2f2f2f;
+}
+
+.dark-mode .leaflet-control-zoom {
+  border: 1px solid #2f2f2f!important;
+}
+
+.dark-mode .leaflet-control-zoom-in,
+.dark-mode .leaflet-control-zoom-out {
+  background-color: #101010;
+  color: #fff;
+}
+
+.dark-mode .leaflet-control-zoom-in {
+  border-color: #2f2f2f;
+}
+
+.dark-mode .leaflet-control-zoom-in:focus,
+.dark-mode .leaflet-control-zoom-out:focus,
+.dark-mode .leaflet-control-zoom-in:hover,
+.dark-mode .leaflet-control-zoom-out:hover {
+  background-color: #2f2f2f;
+}
+
+.options-details-container-body-zoom {
+  font-size: 10px;
+  opacity: .8;
+  letter-spacing: 1px;
+  /* margin-left: .5em; */
+  display: block;
+  margin-top: 0.6em;
+
 }

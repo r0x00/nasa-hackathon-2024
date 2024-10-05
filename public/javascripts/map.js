@@ -30,8 +30,10 @@ export default class Map {
 
     constructor() {
         this.map = L.map('map', {
-            center: [-14.2350, -51.9253],
-            zoom: 5,
+            center: [-23.5505, -46.6333], 
+            zoom: 11
+            // center: [-14.2350, -51.9253],
+            // zoom: 5,
         });
 
         const currentMap = this.mapsOptions[0];
@@ -40,6 +42,15 @@ export default class Map {
             maxZoom: this.maxZoom,
             attribution: currentMap.attribution
         }).addTo(this.map);
+
+
+        // setTimeout(() => {
+        //     this.map.eachLayer(function (layer) {
+        //         console.log(layer)
+        //         // do something with the layer
+        //     });
+
+        // }, 3000)
     };
 
     getMap () {

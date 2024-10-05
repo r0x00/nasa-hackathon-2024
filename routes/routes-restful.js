@@ -5,7 +5,7 @@ require('dotenv').config();
 
 router.get('/settings', function(req, res, next) {
     res.send({
-        TOMTOM_API: process.env.TOMTOM_KEY
+        TOMTOM_KEY: process.env.TOMTOM_KEY
     });
 });
 

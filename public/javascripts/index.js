@@ -10,41 +10,120 @@ window.addEventListener('load', function () {
     loadMap();
 });
 
-function loadMap () {
+async function loadMap () {
     map = new Map();
-
-    addTomtom();
+    
+    await layers.getSettings();
+    
+    tomtom.addTraffic();
+    tomtom.addIncident();
+    wildFire.add();
+    airQuality.add();
 };
 
 function changeMapType(_type) {
     map.removeLayer();
-
     map.setLayer(_type);
+
+
+    if(_type.name == 'Dark Mode') {
+        document.getElementsByTagName('body')[0].classList.add('dark-mode')
+    }  else {
+        document.getElementsByTagName('body')[0].classList.remove('dark-mode')
+    }
+
+    if(tomtom.getTraffic()) {
+        tomtom.removeTraffic();
+        tomtom.addTraffic();
+    };
+
+    if(tomtom.getIncident()) {
+        tomtom.removeIncident();
+        tomtom.addIncident();
+    };
+
+    if(wildFire.get()) {
+        wildFire.remove();
+        wildFire.add();
+    };
+
+    if(airQuality.get()) {
+        airQuality.remove();
+        airQuality.add();
+    };
 };
 
 function switchLayer(_type) {
     const name = _type.name.replaceAll(' ', '');
+    const el = document.getElementById(name);
 
     const isActive = !!layers['get' + name](map.getMap());
 
     if(isActive) {
+        el.classList.add('inactive');
         layers['remove' + name](map.getMap());
 
         return;
     };
     
     layers['set' + name](map.getMap());
+
+    el.classList.remove('inactive');
+};
+
+const tomtom = {
+    getTraffic: function () {
+        return layers.getTomtomTraffic();
+    },
     
+    addTraffic: function () {
+        layers.setTomtomTraffic(map.getMap());
+    },
+
+    removeTraffic: function () {
+        layers.removeTomtomTraffic(map.getMap());
+    },
+
+    getIncident: function () {
+        return layers.getTomtomIncident();
+    },
+
+    addIncident: function () {
+        layers.setTomtomIncident(map.getMap());
+    },
+
+    removeIncident: function () {
+        layers.removeTomtomIncident(map.getMap());
+    },
+};
+
+const wildFire = {
+    get: function() {
+        return layers.getWildFire();
+    },
+
+    add: function() {
+        layers.setWildFire(map.getMap());
+    },
+
+    remove: function() {
+        layers.removeWildFire(map.getMap());
+    }
 };
 
 
-function addTomtom () {
-    layers.setTomtomTraffic(map.getMap());
-};
+const airQuality = {
+    get: function() {
+        return layers.getAirQuality();
+    },
 
-function removeTomtom () {
-    layers.removeTomtomTraffic(this.getMap());
-    
+    add: function() {
+        layers.setAirQuality(map.getMap());
+    },
+
+    remove: function() {
+        layers.removeAirQuality(map.getMap());
+    }
 };
 
 function clearOptions (option) {
@@ -83,7 +162,6 @@ window.changeOption = function (option) {
     const mapsOptions = map.getMapOptions();
     const layerOptions = layers.getLayersOptions();
 
-
     const arrayOptions = option == 'maps' ? mapsOptions : layerOptions;
 
     arrayOptions.forEach(item => {
@@ -91,16 +169,25 @@ window.changeOption = function (option) {
 
         div.textContent = item.name;
 
+        if(option != 'maps') {
+            div.innerHTML = `${item.name} <span class="options-details-container-body-zoom">(min zoom: ${item.minZoom})<span>`;
+        };
+    
+        const name = item.name.replaceAll(' ', '');
+        div.setAttribute('id', name);
+
+        if(option == 'layers' && !layers['get' + name]()) {
+            div.classList.add('inactive')
+        };
 
         div.onclick = () => {
             if(option == 'maps') {
                 changeMapType(item);
             } else {
                 switchLayer(item);
-            }
+            };
         };
 
         detailsBody.appendChild(div);
     });
-
 };
