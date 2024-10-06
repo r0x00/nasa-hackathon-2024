@@ -42,15 +42,6 @@ export default class Map {
             maxZoom: this.maxZoom,
             attribution: currentMap.attribution
         }).addTo(this.map);
-
-
-        // setTimeout(() => {
-        //     this.map.eachLayer(function (layer) {
-        //         console.log(layer)
-        //         // do something with the layer
-        //     });
-
-        // }, 3000)
     };
 
     getMap () {
