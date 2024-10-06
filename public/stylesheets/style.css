@@ -61,7 +61,7 @@ a {
 
 .options-details-container-body div {
   padding: 20px 25px;
-  min-width: 180px;
+  min-width: 220px;
   cursor: pointer;
   transition: all .25s ease-in-out;
   margin: 10px;
@@ -174,7 +174,7 @@ a {
   opacity: .8;
   letter-spacing: 1px;
   /* margin-left: .5em; */
-  display: block;
+  /* display: block; */
   margin-top: 0.6em;
 
 }

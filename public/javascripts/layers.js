@@ -28,9 +28,47 @@ export default class Layers {
             minZoom: 8
         },
 
-    ];
+        {
+            name: "Temperature",
+            url: 'https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid={{WEATHER_KEY}}',
+            attribution: 'Weather data © OpenWeatherMap',
+            minZoom: 7,
+            maxZoom: 13
+        },
 
-    minZoom = 14;
+        {
+            name: "Precipitation",
+            url: 'https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid={{WEATHER_KEY}}',
+            attribution: 'Weather data © OpenWeatherMap',
+            minZoom: 5,
+            maxZoom: 13
+        },
+
+        {
+            name: "Sea Level Pressure",
+            url: 'https://tile.openweathermap.org/map/pressure_new/{z}/{x}/{y}.png?appid={{WEATHER_KEY}}',
+            attribution: 'Weather data © OpenWeatherMap',
+            minZoom: 5,
+            maxZoom: 13
+        },
+
+        {
+            name: "Clouds",
+            url: 'https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid={{WEATHER_KEY}}',
+            attribution: 'Weather data © OpenWeatherMap',
+            minZoom: 5,
+            maxZoom: 13
+        },
+
+        {
+            name: "Wind Speed",
+            url: 'https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid={{WEATHER_KEY}}',
+            attribution: 'Weather data © OpenWeatherMap',
+            minZoom: 5,
+            maxZoom: 13
+        },
+
+    ];
 
     static tomtomTraffic;
 
@@ -39,6 +77,16 @@ export default class Layers {
     static wildFire;
 
     static airQuality;
+
+    static temperature;
+
+    static precipitation;
+
+    static seaLevelPressure;
+
+    static clouds;
+
+    static windSpeed;
 
     async getSettings () {
         const result = await fetch("/api/settings");
@@ -56,7 +104,7 @@ export default class Layers {
         const data = (this.layersOptions.filter((l) => l.name == "Tomtom Traffic"))[0];
 
         this.tomtomTraffic = L.tileLayer(data.url, {
-            minZoom: this.minZoom,
+            minZoom: data.minZoom,
             attribution: data.attribution
         }).addTo(_map);
     };
@@ -76,7 +124,7 @@ export default class Layers {
         const data = (this.layersOptions.filter((l) => l.name == "Tomtom Incident"))[0];
 
         this.tomtomIncident = L.vectorGrid.protobuf(data.url, {
-            minZoom: this.minZoom,
+            minZoom: data.minZoom,
             attribution: data.attribution
         }).addTo(_map);
     };
@@ -90,6 +138,7 @@ export default class Layers {
         
         this.tomtomIncident = undefined;
     };
+
 
     setWildFire (_map) {
         const data = (this.layersOptions.filter((l) => l.name == "Wild Fire"))[0];
@@ -107,7 +156,7 @@ export default class Layers {
                     radius: 5, 
                 }
             },
-            minZoom: 8,
+            minZoom: data.minZoom,
             attribution: data.attribution
         }).addTo(_map);
     };
@@ -122,11 +171,12 @@ export default class Layers {
         this.wildFire = undefined;
     };
 
+
     setAirQuality (_map) {
         const data = (this.layersOptions.filter((l) => l.name == "Air Quality"))[0];
 
         this.airQuality = L.tileLayer(data.url, {
-            minZoom: 8,
+            minZoom: data.minZoom,
             attribution: data.attribution
         }).addTo(_map);
     };
@@ -140,6 +190,112 @@ export default class Layers {
         
         this.airQuality = undefined;
     };
+
+
+    setTemperature (_map) {
+        const data = (this.layersOptions.filter((l) => l.name == "Temperature"))[0];
+
+        this.temperature = L.tileLayer(data.url, {
+            minZoom: data.minZoom,
+            maxZoom: data.maxZoom,
+            attribution: data.attribution
+        }).addTo(_map);
+    };
+
+    getTemperature() {
+        return this.temperature;
+    };
+
+    removeTemperature (_map) {
+        _map.removeLayer(this.temperature);
+        
+        this.temperature = undefined;
+    };
+
+
+    setPrecipitation (_map) {
+        const data = (this.layersOptions.filter((l) => l.name == "Precipitation"))[0];
+
+        this.precipitation = L.tileLayer(data.url, {
+            minZoom: data.minZoom,
+            maxZoom: data.maxZoom,
+            attribution: data.attribution
+        }).addTo(_map);
+    };
+
+    getPrecipitation() {
+        return this.precipitation;
+    };
+
+    removePrecipitation(_map) {
+        _map.removeLayer(this.precipitation);
+        
+        this.precipitation = undefined;
+    };
+
+
+    setSeaLevelPressure (_map) {
+        const data = (this.layersOptions.filter((l) => l.name == "Sea Level Pressure"))[0];
+
+        this.seaLevelPressure = L.tileLayer(data.url, {
+            minZoom: data.minZoom,
+            maxZoom: data.maxZoom,
+            attribution: data.attribution
+        }).addTo(_map);
+    };
+
+    getSeaLevelPressure() {
+        return this.seaLevelPressure;
+    };
+
+    removeSeaLevelPressure(_map) {
+        _map.removeLayer(this.seaLevelPressure);
+        
+        this.seaLevelPressure = undefined;
+    };
+
+
+    setClouds(_map) {
+        const data = (this.layersOptions.filter((l) => l.name == "Clouds"))[0];
+
+        this.clouds = L.tileLayer(data.url, {
+            minZoom: data.minZoom,
+            maxZoom: data.maxZoom,
+            attribution: data.attribution
+        }).addTo(_map);
+    };
+
+    getClouds() {
+        return this.clouds;
+    };
+
+    removeClouds(_map) {
+        _map.removeLayer(this.clouds);
+        
+        this.clouds = undefined;
+    };
+
+
+    setWindSpeed(_map) {
+        const data = (this.layersOptions.filter((l) => l.name == "Wind Speed"))[0];
+
+        this.windSpeed = L.tileLayer(data.url, {
+            minZoom: data.minZoom,
+            maxZoom: data.maxZoom,
+            attribution: data.attribution
+        }).addTo(_map);
+    };
+
+    getWindSpeed() {
+        return this.windSpeed;
+    };
+
+    removeWindSpeed(_map) {
+        _map.removeLayer(this.windSpeed);
+        
+        this.windSpeed = undefined;
+    };
+
 
     getLayersOptions () {
         return this.layersOptions

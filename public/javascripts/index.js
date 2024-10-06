@@ -9,6 +9,7 @@ const layers = new Layers()
 window.addEventListener('load', function () {
     loadMap();
 });
+ 
 
 async function loadMap () {
     map = new Map();
@@ -32,24 +33,23 @@ function changeMapType(_type) {
         document.getElementsByTagName('body')[0].classList.remove('dark-mode')
     }
 
-    if(tomtom.getTraffic()) {
-        tomtom.removeTraffic();
-        tomtom.addTraffic();
-    };
+    const options = [ 
+        { type: tomtom, get: "getTraffic", add: "addTraffic", remove: "removeTraffic" },
+        { type: tomtom, get: "getIncident", add: "addIncident", remove: "removeIncident" },
+        { type: wildFire, get: "get", add: "add", remove: "remove" },
+        { type: airQuality, get: "get", add: "add", remove: "remove" },
+        { type: temperature, get: "get", add: "add", remove: "remove" },
+        { type: precipitation, get: "get", add: "add", remove: "remove" },
+        { type: seaLevelPressure, get: "get", add: "add", remove: "remove" },
+        { type: clouds, get: "get", add: "add", remove: "remove" },
+        { type: windSpeed, get: "get", add: "add", remove: "remove" },
+    ];
 
-    if(tomtom.getIncident()) {
-        tomtom.removeIncident();
-        tomtom.addIncident();
-    };
-
-    if(wildFire.get()) {
-        wildFire.remove();
-        wildFire.add();
-    };
-
-    if(airQuality.get()) {
-        airQuality.remove();
-        airQuality.add();
+    for(const o of options) {
+        if(o.type[o.get]()) {
+            o.type[o.remove]();
+            o.type[o.add]();
+        };
     };
 };
 
@@ -111,7 +111,6 @@ const wildFire = {
     }
 };
 
-
 const airQuality = {
     get: function() {
         return layers.getAirQuality();
@@ -125,6 +124,77 @@ const airQuality = {
         layers.removeAirQuality(map.getMap());
     }
 };
+
+const temperature = {
+    get: function() {
+        return layers.getTemperature();
+    },
+
+    add: function() {
+        layers.setTemperature(map.getMap());
+    },
+
+    remove: function() {
+        layers.removeTemperature(map.getMap());
+    }
+};
+
+const precipitation = {
+    get: function() {
+        return layers.getPrecipitation();
+    },
+
+    add: function() {
+        layers.setPrecipitation(map.getMap());
+    },
+
+    remove: function() {
+        layers.removePrecipitation(map.getMap());
+    }
+};
+
+const seaLevelPressure = {
+    get: function() {
+        return layers.getSeaLevelPressure();
+    },
+
+    add: function() {
+        layers.setSeaLevelPressure(map.getMap());
+    },
+
+    remove: function() {
+        layers.removeSeaLevelPressure(map.getMap());
+    }
+};
+
+const clouds = {
+    get: function() {
+        return layers.getClouds();
+    },
+
+    add: function() {
+        layers.setClouds(map.getMap());
+    },
+
+    remove: function() {
+        layers.removeClouds(map.getMap());
+    }
+};
+
+const windSpeed = {
+    get: function() {
+        return layers.getWindSpeed();
+    },
+
+    add: function() {
+        layers.setWindSpeed(map.getMap());
+    },
+
+    remove: function() {
+        layers.removeWindSpeed(map.getMap());
+    }
+};
+
 
 function clearOptions (option) {
     const detailsContainer = document.getElementsByClassName('options-details-container')[0];
@@ -167,12 +237,13 @@ window.changeOption = function (option) {
     arrayOptions.forEach(item => {
         const div = document.createElement('div');
 
-        div.textContent = item.name;
+        let innerHTML = `<p class="no-margins">${item.name}</p>`;
 
-        if(option != 'maps') {
-            div.innerHTML = `${item.name} <span class="options-details-container-body-zoom">(min zoom: ${item.minZoom})<span>`;
-        };
-    
+        if(item.minZoom) innerHTML += ` <span class="options-details-container-body-zoom">(min zoom: ${item.minZoom})</span>`;
+        if(item.maxZoom) innerHTML += ` <span class="options-details-container-body-zoom">(max zoom: ${item.maxZoom})</span>`;
+
+        div.innerHTML = innerHTML;
+
         const name = item.name.replaceAll(' ', '');
         div.setAttribute('id', name);
 
