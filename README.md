@@ -1,6 +1,6 @@
-# Nasa-Hackathon-2024
+# Nasa Hackathon 2024
 
-Welcome to the **nasa-Hackathon-2024 project**! This application was created for the NASA hackathon in 2024 and allows for interactive visualization of a GIS (Geographic Information System) map.
+Welcome to the **Nasa Hackathon 2024 project**! This application was created for the NASA hackathon in 2024 and allows for interactive visualization of a GIS (Geographic Information System) map.
 
 
 ## Features
